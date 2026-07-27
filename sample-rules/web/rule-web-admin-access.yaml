@@ -1,0 +1,10 @@
+title: Suspicious Admin Access
+
+logsource:
+  category: web
+
+detection:
+  selection:
+    method: GET
+    url|contains: "/admin"
+  condition: selection

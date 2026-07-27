@@ -1,0 +1,16 @@
+title: Encoded PowerShell
+
+logsource:
+  product: windows
+
+detection:
+  selection:
+    EventID: 4688
+    CommandLine|contains:
+      - "-enc"
+      - "encodedcommand"
+
+  filter:
+    User: SYSTEM
+
+  condition: selection and not filter

@@ -1,0 +1,55 @@
+from sqlalchemy.orm import Session
+
+from app.db.models import Challenge
+from app.db.session import SessionLocal
+
+
+def seed_database() -> None:
+    db: Session = SessionLocal()
+
+    try:
+        if db.query(Challenge).count() > 0:
+            return
+
+        challenges = [
+            Challenge(
+                title="The First Probe",
+                question="A customer reports unusual traffic hitting their public-facing application.\n\nThe SOC team suspects that an attacker was performing reconnaissance before attempting a larger attack. Several requests were made against sensitive administrative paths.\n\nWrite a Sigma rule that identifies the reconnaissance activity by detecting suspicious requests targeting administrative areas of the application.",
+                dataset="web_access",
+                correct_answer = "dGl0bGU6IERldGVjdCBBZG1pbmlzdHJhdGl2ZSBQYW5lbCBSZWNvbm5haXNzYW5jZQppZDogMWUxOGNlMmItMzY4ZC00N2NiLWE3MzUtNmUxYjBhNGM2NzVjCmRlc2NyaXB0aW9uOiBEZXRlY3RzIHN1c3BpY2lvdXMgcmVxdWVzdHMgdGFyZ2V0aW5nIGFkbWluaXN0cmF0aXZlIGFwcGxpY2F0aW9uIHBhdGhzIHRoYXQgbWF5IGluZGljYXRlIGF0dGFja2VyIHJlY29ubmFpc3NhbmNlIGFjdGl2aXR5IGFnYWluc3QgZXhwb3NlZCB3ZWIgc2VydmljZXMKCmxvZ3NvdXJjZToKICAgIGNhdGVnb3J5OiB3ZWJfYWNjZXNzCgpkZXRlY3Rpb246CiAgICBzZWxlY3Rpb246CiAgICAgICAgdXJsfGNvbnRhaW5zOiAiL2FkbWluIgoKICAgIGNvbmRpdGlvbjogc2VsZWN0aW9uCgpsZXZlbDogbG93Cg=="
+            ),
+            Challenge(
+                title="The Webshell Intrusion",
+                question="The investigation from the previous alert continues.\n\nThe attacker was not only scanning the application but also attempted to execute commands through a vulnerable web interface.\n\nThe SOC analyst needs to identify successful webshell activity where attackers accessed command execution endpoints on the server.\n\nWrite a Sigma rule that detects the malicious webshell requests.",
+                dataset="web_access",
+                correct_answer = "dGl0bGU6IERldGVjdCBXZWJzaGVsbCBDb21tYW5kIEV4ZWN1dGlvbiBBdHRlbXB0cwppZDogNmVlMTU2YWMtMDExMi00NDY2LTg5ZDQtYzdmNGIwODBlNTc5CmRlc2NyaXB0aW9uOiBEZXRlY3RzIHdlYiByZXF1ZXN0cyBhdHRlbXB0aW5nIHRvIGFjY2VzcyBjb21tYW5kIGV4ZWN1dGlvbiB3ZWJzaGVsbCBlbmRwb2ludHMsIHdoaWNoIG1heSBpbmRpY2F0ZSBleHBsb2l0YXRpb24gb2YgYSB2dWxuZXJhYmxlIHdlYiBhcHBsaWNhdGlvbgoKbG9nc291cmNlOgogICAgY2F0ZWdvcnk6IHdlYl9hY2Nlc3MKCmRldGVjdGlvbjoKICAgIHNlbGVjdGlvbjoKICAgICAgICB1cmx8Y29udGFpbnM6ICJjbWQucGhwIgoKICAgIGNvbmRpdGlvbjogc2VsZWN0aW9uCgpsZXZlbDogaGlnaAo="
+            ),
+            Challenge(
+                title="The Suspicious Download",
+                question="After gaining initial access, the attacker attempted to download additional tooling onto a compromised Windows workstation.\n\nThe endpoint team noticed suspicious command execution involving a built-in Windows utility commonly abused for transferring files.\n\nCreate a Sigma rule that detects this suspicious process execution activity.",
+                dataset="sysmon",
+                correct_answer = "dGl0bGU6IERldGVjdCBCaXRzYWRtaW4gRG93bmxvYWQgQWN0aXZpdHkKaWQ6IDdlNmQ1YmMyLWI5MDktNGZjMy04NDJlLWMxMTE5OTEzNTQxMApkZXNjcmlwdGlvbjogRGV0ZWN0cyBleGVjdXRpb24gb2YgYml0c2FkbWluLmV4ZSwgYSBsZWdpdGltYXRlIFdpbmRvd3MgdXRpbGl0eSB0aGF0IGlzIGZyZXF1ZW50bHkgYWJ1c2VkIGJ5IGF0dGFja2VycyB0byBkb3dubG9hZCBmaWxlcyBhbmQgZXhlY3V0ZSBtYWxpY2lvdXMgcGF5bG9hZHMKCmxvZ3NvdXJjZToKICAgIGNhdGVnb3J5OiBzeXNtb24KCmRldGVjdGlvbjoKICAgIHNlbGVjdGlvbjoKICAgICAgICBOZXdQcm9jZXNzTmFtZXxjb250YWluczogImJpdHNhZG1pbi5leGUiCgogICAgY29uZGl0aW9uOiBzZWxlY3Rpb24KCmxldmVsOiBtZWRpdW0K"
+            ),
+            Challenge(
+                title="The Living Off The Land Attack",
+                question="The attacker attempted to avoid dropping obvious malware by abusing legitimate Windows utilities.\n\nDuring the investigation, analysts found evidence that command interpreters were used to launch suspicious activity.\n\nWrite a Sigma rule that identifies command shell based process creation events associated with the attack.",
+                dataset="sysmon",
+                correct_answer = "dGl0bGU6IERldGVjdCBDb21tYW5kIFNoZWxsIEJhc2VkIEV4ZWN1dGlvbgppZDogYjRhNDA5NDktOTdlYy00ZDUwLWEyMzQtZDgwODIyMzE1YTFlCmRlc2NyaXB0aW9uOiBEZXRlY3RzIHByb2Nlc3NlcyBsYXVuY2hlZCB0aHJvdWdoIHRoZSBXaW5kb3dzIGNvbW1hbmQgaW50ZXJwcmV0ZXIsIHdoaWNoIG1heSBpbmRpY2F0ZSBhdHRhY2tlciBjb21tYW5kIGV4ZWN1dGlvbiBvciBhYnVzZSBvZiBsZWdpdGltYXRlIHN5c3RlbSB0b29scwoKbG9nc291cmNlOgogICAgY2F0ZWdvcnk6IHN5c21vbgoKZGV0ZWN0aW9uOgogICAgc2VsZWN0aW9uOgogICAgICAgIFBhcmVudFByb2Nlc3NOYW1lfGNvbnRhaW5zOiAiY21kLmV4ZSIKCiAgICBjb25kaXRpb246IHNlbGVjdGlvbgoKbGV2ZWw6IG1lZGl1bQo="
+            ),
+            Challenge(
+                title="The Final Connection",
+                question="The investigation reaches its final stage.\n\nThe attacker has already gained access to the environment, but the SOC team needs to understand the last activity performed from the compromised workstation.\n\nDuring analysis of Windows security logs, analysts discovered suspicious outbound network activity generated by a system process communicating externally.\n\nWrite a Sigma rule that identifies these suspicious network connection events and helps complete the incident timeline.",
+                dataset="windows_security",
+                correct_answer = "dGl0bGU6IERldGVjdCBTdXNwaWNpb3VzIFdpbmRvd3MgT3V0Ym91bmQgQ29ubmVjdGlvbgppZDogZjhjMTFiZmMtODljYy00MTA5LWI2NzAtNDY4ZWVkYTE2MjAzCmRlc2NyaXB0aW9uOiBEZXRlY3RzIG91dGJvdW5kIG5ldHdvcmsgY29ubmVjdGlvbnMgY3JlYXRlZCBieSB0aGUgV2luZG93cyBBenVyZSBHdWVzdCBBZ2VudCBwcm9jZXNzIHRoYXQgbWF5IGluZGljYXRlIHN1c3BpY2lvdXMgYWN0aXZpdHkgZnJvbSBhIGNvbXByb21pc2VkIGVuZHBvaW50Cgpsb2dzb3VyY2U6CiAgICBjYXRlZ29yeTogd2luZG93c19zZWN1cml0eQoKZGV0ZWN0aW9uOgogICAgc2VsZWN0aW9uOgogICAgICAgIEV2ZW50SUQ6IDUxNTYKICAgICAgICBBcHBsaWNhdGlvbnxjb250YWluczogIndpbmRvd3NhenVyZWd1ZXN0YWdlbnQuZXhlIgoKICAgIGNvbmRpdGlvbjogc2VsZWN0aW9uCgpsZXZlbDogbWVkaXVtCg=="
+            ),
+        ]
+
+        db.add_all(challenges)
+        db.commit()
+
+    except Exception:
+        db.rollback()
+        raise
+
+    finally:
+        db.close()

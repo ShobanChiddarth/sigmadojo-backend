@@ -1,0 +1,12 @@
+title: Whoami Execution
+logsource:
+  product: windows
+  service: sysmon
+
+detection:
+  selection:
+    EventID: 1
+    CommandLine|contains: whoami
+
+  condition: selection
+  

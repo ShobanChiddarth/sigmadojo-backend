@@ -1,0 +1,12 @@
+title: CMD Execution
+logsource:
+  product: windows
+  service: sysmon
+
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: cmd.exe
+
+  condition: selection
+  

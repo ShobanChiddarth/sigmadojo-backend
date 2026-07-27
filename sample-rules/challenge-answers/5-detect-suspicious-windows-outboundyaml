@@ -1,0 +1,15 @@
+title: Detect Suspicious Windows Outbound Connection
+id: f8c11bfc-89cc-4109-b670-468eeda16203
+description: Detects outbound network connections created by the Windows Azure Guest Agent process that may indicate suspicious activity from a compromised endpoint
+
+logsource:
+    category: windows_security
+
+detection:
+    selection:
+        EventID: 5156
+        Application|contains: "windowsazureguestagent.exe"
+
+    condition: selection
+
+level: medium

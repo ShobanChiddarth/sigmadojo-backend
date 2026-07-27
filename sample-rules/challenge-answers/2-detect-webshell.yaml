@@ -1,0 +1,14 @@
+title: Detect Webshell Command Execution Attempts
+id: 6ee156ac-0112-4466-89d4-c7f4b080e579
+description: Detects web requests attempting to access command execution webshell endpoints, which may indicate exploitation of a vulnerable web application
+
+logsource:
+    category: web_access
+
+detection:
+    selection:
+        url|contains: "cmd.php"
+
+    condition: selection
+
+level: high

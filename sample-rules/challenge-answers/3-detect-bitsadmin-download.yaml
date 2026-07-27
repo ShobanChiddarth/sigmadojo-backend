@@ -1,0 +1,14 @@
+title: Detect Bitsadmin Download Activity
+id: 7e6d5bc2-b909-4fc3-842e-c11199135410
+description: Detects execution of bitsadmin.exe, a legitimate Windows utility that is frequently abused by attackers to download files and execute malicious payloads
+
+logsource:
+    category: sysmon
+
+detection:
+    selection:
+        NewProcessName|contains: "bitsadmin.exe"
+
+    condition: selection
+
+level: medium

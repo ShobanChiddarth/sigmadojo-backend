@@ -1,0 +1,12 @@
+title: maulicious web server requests
+
+logsource:
+    product: webserver
+    category: web
+
+detection:
+  selection:
+    is_malicious: true
+
+  condition: selection
+  

@@ -1,0 +1,14 @@
+title: Detect Administrative Panel Reconnaissance
+id: 1e18ce2b-368d-47cb-a735-6e1b0a4c675c
+description: Detects suspicious requests targeting administrative application paths that may indicate attacker reconnaissance activity against exposed web services
+
+logsource:
+    category: web_access
+
+detection:
+    selection:
+        url|contains: "/admin"
+
+    condition: selection
+
+level: low

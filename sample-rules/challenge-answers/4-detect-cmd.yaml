@@ -1,0 +1,14 @@
+title: Detect Command Shell Based Execution
+id: b4a40949-97ec-4d50-a234-d80822315a1e
+description: Detects processes launched through the Windows command interpreter, which may indicate attacker command execution or abuse of legitimate system tools
+
+logsource:
+    category: sysmon
+
+detection:
+    selection:
+        ParentProcessName|contains: "cmd.exe"
+
+    condition: selection
+
+level: medium

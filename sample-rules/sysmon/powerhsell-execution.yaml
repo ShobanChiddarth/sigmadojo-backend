@@ -1,0 +1,13 @@
+title: PowerShell Execution
+id: 3b3b4f58-8c1f-4d42-a14c-123456789abc
+status: test
+logsource:
+  product: windows
+  service: sysmon
+
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: powershell.exe
+
+  condition: selection
